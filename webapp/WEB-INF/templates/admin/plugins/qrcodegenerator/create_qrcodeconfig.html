@@ -1,0 +1,27 @@
+<@box>
+	<@boxHeader title='#i18n{qrcodegenerator.create_qrcodeconfig.title}' />
+	<@boxBody>
+    <@tform name='create_qrcodeconfig' action='jsp/admin/plugins/qrcodegenerator/ManageQrCodeConfigs.jsp' enctype="multipart/form-data">
+
+        <@messages errors=errors />
+        <@input type="hidden" id="id" name="id"/>
+        <@input type="hidden" value="${token}" name="token" />
+
+		<@formGroup labelFor='configuration_name' labelKey='#i18n{qrcodegenerator.modify_qrcodeconfig.labelConfigurationName}' mandatory=true>
+			<@input type='text' id='configuration_name' name='configuration_name'  maxlength=50 value='${qrcodeconfig.configurationName!\'\'}' tabIndex='0' />
+		</@formGroup>
+		<@formGroup labelFor='configuration_type' labelKey='#i18n{qrcodegenerator.modify_qrcodeconfig.labelConfigurationType}' mandatory=true>
+			<select class="form-select" aria-label="#i18n{qrcodegenerator.modify_qrcodeconfig.labelConfigurationType}" id="configuration_type" name="configuration_type">
+			  <#list qrcodeconfig_type_map as name, value>
+			  	<option value="${value}" <#if value = 0> selected</#if>>${name}</option>
+			  </#list>
+			</select>
+		</@formGroup>
+		<@formGroup labelFor='image_logo' labelKey='#i18n{qrcodegenerator.modify_qrcodeconfig.labelImageLogo}' mandatory=false>
+          	<@input type='file' id='image_logo' name='image_logo'  maxlength=50 value='${qrcodeconfig.imageLogo!\'\'}' tabIndex='2' />
+		</@formGroup>
+				
+		<@actionButtons button1Name="action_createQrCodeConfig" button2Name="view_manageQrCodeConfig"/>
+    </@tform>
+	</@boxBody>
+</@box>

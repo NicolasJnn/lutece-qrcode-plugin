@@ -1,0 +1,48 @@
+
+<@box>
+	<@boxHeader title='#i18n{qrcodegenerator.manage_qrcodeconfig.title}' boxTools=true>
+		<@tform class='form-inline pull-right' name='manage_qrcodeconfig' action='jsp/admin/plugins/qrcodegenerator/ManageQrCodeConfigs.jsp'>
+			<@button type='submit' name='view_createQrCodeConfig' buttonIcon='plus' title='#i18n{qrcodegenerator.manage_qrcodeconfigs.buttonAdd}' />
+		</@tform>
+	</@boxHeader>
+	<@boxBody>    
+    <@messages infos=infos />
+    <@paginationAdmin paginator=paginator combo=1 />
+    <div class="clearfix"></div>
+    <@table>
+        <tr>
+        	<th>#i18n{qrcodegenerator.manage_qrcodeconfigs.columnConfigurationId}</th>
+            <th>#i18n{qrcodegenerator.manage_qrcodeconfigs.columnConfigurationName}</th>
+            <th>#i18n{qrcodegenerator.manage_qrcodeconfigs.columnConfigurationType}</th>
+            <th>#i18n{qrcodegenerator.manage_qrcodeconfigs.columnImageLogo}</th>
+            <th>#i18n{portal.util.labelActions}</th>
+        </tr>
+        <@tableHeadBodySeparator />
+        <#list qrcodeconfig_list as qrcodeconfig >
+        <tr>
+       		<td>
+				${qrcodeconfig.getId()}
+			</td>
+            <td>
+				${qrcodeconfig.configurationName}
+			</td>
+            <td>
+				${qrcodeconfig_type_list[qrcodeconfig.configurationType].name()}
+			</td>
+            <td>
+				<@link href="${qrcodeconfig.imageLogo.url!}">${qrcodeconfig.imageLogo.title!}</@link>
+			</td>
+        	<td>
+				<@aButton href='jsp/admin/plugins/qrcodegenerator/ManageQrCodeConfigs.jsp?view=modifyQrCodeConfig&id=${qrcodeconfig.id}' title='#i18n{portal.util.labelModify}' hideTitle=['all'] buttonIcon='pencil' />
+						
+				<@aButton href='jsp/admin/plugins/qrcodegenerator/ManageQrCodeConfigs.jsp?action=confirmRemoveQrCodeConfig&id=${qrcodeconfig.id}' title='#i18n{portal.util.labelDelete}' buttonIcon='trash' hideTitle=['all'] color='btn-danger'  />
+
+	        </td>
+        </tr>
+        </#list>
+    </@table>
+
+    <@paginationAdmin paginator=paginator />
+
+  </@boxBody>
+</@box>
